@@ -6,18 +6,26 @@ defmodule TimeManagerWeb.WorkingTimeController do
 
   action_fallback TimeManagerWeb.FallbackController
 
-  def index(conn, _params) do
-    workingtimes = API.list_workingtimes()
-    render(conn, "index.json", workingtimes: workingtimes)
-  end
-
-  def create(conn, %{"working_time" => working_time_params}) do
+  def create(conn, %{"userID" => user_id, "working_time" => working_time_params}) do
+    working_time_params = Map.put(working_time_params, "user", user_id)
     with {:ok, %WorkingTime{} = working_time} <- API.create_working_time(working_time_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.working_time_path(conn, :show, working_time))
       |> render("show.json", working_time: working_time)
     end
+  end
+
+  def get(conn, %{"userID" => user_id, "id" => id}) do
+    working_time = API.get_working_time(id)
+    render(conn, "show.json", working_time: working_time)
+  end
+
+  def getAll(conn, %{"userID" => user_id}) do
+    map = conn.query_params
+    startDate = Jason.decode(map["start"])
+    working_time = API.get_working_time_range(user_id, startDate, map["end"])
+    render(conn, "manyshow.json", working_time: working_time)
   end
 
   def show(conn, %{"id" => id}) do

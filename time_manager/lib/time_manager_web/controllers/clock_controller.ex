@@ -1,6 +1,5 @@
 defmodule TimeManagerWeb.ClockController do
   use TimeManagerWeb, :controller
-
   alias TimeManager.API
   alias TimeManager.API.Clock
 
@@ -11,7 +10,9 @@ defmodule TimeManagerWeb.ClockController do
     render(conn, "index.json", clocks: clocks)
   end
 
-  def create(conn, %{"clock" => clock_params}) do
+  def create(conn, %{"userID" => user_id, "clock" => clock_params}) do
+    # add user_id to clock_params
+    clock_params = Map.put(clock_params, "user", user_id)
     with {:ok, %Clock{} = clock} <- API.create_clock(clock_params) do
       conn
       |> put_status(:created)
@@ -20,8 +21,8 @@ defmodule TimeManagerWeb.ClockController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    clock = API.get_clock!(id)
+  def show(conn, %{"userID" => user}) do
+    clock = API.get_clock_by_user(user)
     render(conn, "show.json", clock: clock)
   end
 

@@ -37,6 +37,10 @@ defmodule TimeManager.API do
   """
   def get_clock!(id), do: Repo.get!(Clock, id)
 
+  def get_clock_by_user(user) do
+    Repo.all(from c in Clock, where: c.user == ^user)
+  end
+
   @doc """
   Creates a clock.
 
@@ -131,7 +135,8 @@ defmodule TimeManager.API do
       ** (Ecto.NoResultsError)
 
   """
-  def get_working_time!(id), do: Repo.get!(WorkingTime, id)
+  def get_working_time(id), do: Repo.get(WorkingTime, id)
+  def get_working_time_range(user_id, startDate, endDate), do: Repo.all(from w in WorkingTime, where: w.start == ^startDate)
 
   @doc """
   Creates a working_time.
