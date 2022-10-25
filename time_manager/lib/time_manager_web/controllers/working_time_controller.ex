@@ -21,11 +21,17 @@ defmodule TimeManagerWeb.WorkingTimeController do
     render(conn, "show.json", working_time: working_time)
   end
 
-  def getAll(conn, %{"userID" => user_id}) do
-    map = conn.query_params
-    startDate = Jason.decode(map["start"])
-    working_time = API.get_working_time_range(user_id, startDate, map["end"])
-    render(conn, "manyshow.json", working_time: working_time)
+  def getAll(conn, params) do
+    user_id = Map.get(params, "userID", nil)
+    startDate = Map.get(params, "start", nil)
+    endDate = Map.get(params, "end", nil)
+    if (user_id != nil && startDate != nil && endDate != nil) do
+      working_times = API.get_working_time_range(user_id, startDate, endDate)
+      render(conn, "manyshow.json", working_times: working_times)
+    else
+      workingtimes = API.list_workingtimes()
+      render(conn, "index.json", workingtimes: workingtimes)
+    end
   end
 
   def show(conn, %{"id" => id}) do

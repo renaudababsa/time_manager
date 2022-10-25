@@ -7,6 +7,8 @@ defmodule TimeManager.API do
   alias TimeManager.Repo
 
   alias TimeManager.API.Clock
+  alias TimeManager.API.WorkingTime
+
 
   @doc """
   Returns the list of clocks.
@@ -39,6 +41,11 @@ defmodule TimeManager.API do
 
   def get_clock_by_user(user) do
     Repo.all(from c in Clock, where: c.user == ^user)
+  end
+
+
+  def get_working_time_range(user, startDate, endDate) do
+    Repo.all(from w in WorkingTime, where: w.user == ^user and w.start >= ^startDate and w.end <= ^endDate)
   end
 
   @doc """
@@ -106,7 +113,6 @@ defmodule TimeManager.API do
     Clock.changeset(clock, attrs)
   end
 
-  alias TimeManager.API.WorkingTime
 
   @doc """
   Returns the list of workingtimes.
@@ -135,8 +141,9 @@ defmodule TimeManager.API do
       ** (Ecto.NoResultsError)
 
   """
+
   def get_working_time(id), do: Repo.get(WorkingTime, id)
-  def get_working_time_range(user_id, startDate, endDate), do: Repo.all(from w in WorkingTime, where: w.start == ^startDate)
+
 
   @doc """
   Creates a working_time.
