@@ -7,8 +7,8 @@ defmodule TimeManagerWeb.Router do
 
   scope "/api", TimeManagerWeb do
     pipe_through :api
-    resources "/users", UserController, except: [:new, :edit]
-    get "/users", UserController, :getByInfo , email: "XXX", username: "YYY"
+    resources "/users", UserController, except: [:index, :new, :edit]
+    get "/users", UserController, :getParam
 
     scope "/workingtimes" do
       get "/:userID", WorkingTimeController, :getAll
