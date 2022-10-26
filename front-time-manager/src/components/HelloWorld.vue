@@ -1,10 +1,12 @@
 <script setup>
+import { api } from '../services/api';
 defineProps({
   msg: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
+console.log(api('/api/workingtimes/1/4'));
 </script>
 
 <template>
