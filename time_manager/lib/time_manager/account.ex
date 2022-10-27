@@ -37,6 +37,7 @@ defmodule TimeManager.Account do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+
   def get_user_by_params(username, email) do
     Repo.all(from u in User, where: u.username == ^username or u.email == ^email)
   end
@@ -46,7 +47,7 @@ defmodule TimeManager.Account do
   def get_user_by_email(email) do
     Repo.all(from u in User, where: u.email == ^email)
   end
-
+  
   @doc """
   Creates a user.
 

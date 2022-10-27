@@ -1,5 +1,6 @@
 defmodule TimeManagerWeb.ClockController do
   use TimeManagerWeb, :controller
+  
   alias TimeManager.API
   alias TimeManager.API.Clock
 
@@ -20,6 +21,7 @@ defmodule TimeManagerWeb.ClockController do
       |> render("show.json", clock: clock)
     end
   end
+
 
   def show(conn, %{"userID" => user}) do
     clock = API.get_clock_by_user(user)

@@ -7,6 +7,7 @@ defmodule TimeManagerWeb.ClockControllerTest do
 
   @create_attrs %{
     status: true,
+
     time: ~N[2022-10-24 11:33:00]
   }
   @update_attrs %{

@@ -3,9 +3,11 @@ import Config
 # Configure your database
 config :time_manager, TimeManager.Repo,
   username: "postgres",
-  password: "p;aswf",
+  password: "root",
   hostname: "localhost",
+
   database: "test_dev",
+
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

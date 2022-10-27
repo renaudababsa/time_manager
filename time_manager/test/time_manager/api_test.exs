@@ -21,6 +21,7 @@ defmodule TimeManager.APITest do
     end
 
     test "create_clock/1 with valid data creates a clock" do
+
       valid_attrs = %{status: true, time: ~N[2022-10-24 11:33:00]}
 
       assert {:ok, %Clock{} = clock} = API.create_clock(valid_attrs)
@@ -34,11 +35,13 @@ defmodule TimeManager.APITest do
 
     test "update_clock/2 with valid data updates the clock" do
       clock = clock_fixture()
+
       update_attrs = %{status: false, time: ~N[2022-10-25 11:33:00]}
 
       assert {:ok, %Clock{} = clock} = API.update_clock(clock, update_attrs)
       assert clock.status == false
       assert clock.time == ~N[2022-10-25 11:33:00]
+
     end
 
     test "update_clock/2 with invalid data returns error changeset" do
