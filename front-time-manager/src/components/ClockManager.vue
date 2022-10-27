@@ -1,16 +1,19 @@
 <script setup>
+import { render } from 'vue';
 import { clock } from './clockmanagerController';
-async function render() {
-  await clock(localStorage.getItem('id')).then((res) => {
-    return res.data;
-  });
+function log(data) {
+  console.log(data);
 }
 </script>
 
 <template>
   <div>
-    <button id="clock" v-on:click="">pointer</button>
-    {{ render() }}
+    <button id="clock" v-on:click="renderinge()">pointer</button>
+    {{
+      this.rendercode?.status
+        ? 'terminer votre journée?'
+        : 'Commencer votre journée?'
+    }}
   </div>
 </template>
 
@@ -27,3 +30,27 @@ button:hover {
   background-color: darkgray;
 }
 </style>
+
+<script>
+export default {
+  name: 'Create',
+
+  data() {
+    return {
+      rendercode: {},
+    };
+  },
+  methods: {
+    renderinge() {
+      clock(localStorage.getItem('id')).then((res) => {
+        console.log(res.data.pop());
+        this.rendercode = res.data.pop();
+      });
+    },
+    pointFetch() {},
+  },
+  mounted: function () {
+    this.renderinge();
+  },
+};
+</script>

@@ -23,7 +23,7 @@ import ClockManager from './components/ClockManager.vue';
   <main>
     <!-- <TheWelcome /> -->
     <!-- <Connection /> -->
-    <ClockManager />
+    <suspense><ClockManager /></suspense>
   </main>
 </template>
 

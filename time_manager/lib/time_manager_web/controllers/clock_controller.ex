@@ -23,7 +23,7 @@ defmodule TimeManagerWeb.ClockController do
 
   def show(conn, %{"userID" => user}) do
     clock = API.get_clock_by_user(user)
-    render(conn, "show.json", clock: clock)
+    render(conn, "manyshow.json", clock: clock)
   end
 
   def update(conn, %{"id" => id, "clock" => clock_params}) do

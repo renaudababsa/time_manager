@@ -35,3 +35,14 @@ export async function deleteWorkingTime(userId, id) {
   });
   return result;
 }
+
+export async function getWorkingTime(userId) {
+  let result;
+  api(
+    '/api/workingtimes/1?start=2022-10-06 11:15:11&end=2023-10-06 11:11:11',
+    'GET'
+  ).then((res) => {
+    result = res['data'];
+  });
+  return result;
+}
