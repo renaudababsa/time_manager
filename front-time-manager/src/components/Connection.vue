@@ -2,7 +2,8 @@
 import { api } from '../services/api';
 function connection(name, email) {
   api(`/api/users/?name=${name}&email=${email}`, 'GET').then((res) => {
-    localStorage.setItem('id', res.data.id);
+    localStorage.setItem('id', res['data'][0]['id']);
+    location.reload();
   });
 }
 </script>
