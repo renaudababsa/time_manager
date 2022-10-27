@@ -3,6 +3,7 @@ import HelloWorld from './components/HelloWorld.vue';
 import TheWelcome from './components/TheWelcome.vue';
 import Connection from './components/Connection.vue';
 import ClockManager from './components/ClockManager.vue';
+import TimeTable from './components/TimeTable.vue';
 </script>
 
 <template>
@@ -24,6 +25,7 @@ import ClockManager from './components/ClockManager.vue';
     <!-- <TheWelcome /> -->
     <!-- <Connection /> -->
     <suspense><ClockManager /></suspense>
+    <TimeTable/>
   </main>
 </template>
 
