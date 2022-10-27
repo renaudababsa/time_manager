@@ -2,7 +2,7 @@
 import { api } from '../services/api';
 function connection(name, email) {
   api(`/api/users/?name=${name}&email=${email}`, 'GET').then((res) => {
-    localStorage.setItem('isAuth', true);
+    localStorage.setItem('id', res.data.id);
   });
 }
 </script>
