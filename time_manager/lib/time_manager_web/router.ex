@@ -15,8 +15,10 @@ defmodule TimeManagerWeb.Router do
       get "/:userID", WorkingTimeController, :getAll
       post "/:userID", WorkingTimeController, :create
       get "/:userID/:id", WorkingTimeController, :get
+      delete "/:userID/:id", WorkingTimeController, :delete
+      put "/:userID/:id", WorkingTimeController, :update
     end
-    resources "/workingtimes", WorkingTimeController, only: [:update, :delete, :show]
+    resources "/workingtimes", WorkingTimeController, only: [:show]
 
     scope "/clocks" do
       get "/:userID", ClockController, :show

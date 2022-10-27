@@ -9,6 +9,11 @@ defmodule TimeManagerWeb.UserController do
   def getParam(conn, params) do
     username = Map.get(params, "username", nil)
     email = Map.get(params, "email", nil)
+    # test email syntax
+
+
+
+
      if (username != nil || email != nil) do
       if (username != nil && email == nil) do
        user = Account.get_user_by_username(username)
@@ -30,7 +35,7 @@ defmodule TimeManagerWeb.UserController do
       end
      else
       conn
-      |> put_status(500)
+      |> put_status(404)
      end
   end
 

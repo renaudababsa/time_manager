@@ -2,10 +2,11 @@
 import HelloWorld from './components/HelloWorld.vue';
 import TheWelcome from './components/TheWelcome.vue';
 import Connection from './components/Connection.vue';
+import ClockManager from './components/ClockManager.vue';
 </script>
 
 <template>
-  <header>
+  <!-- <header>
     <img
       alt="Vue logo"
       class="logo"
@@ -17,11 +18,12 @@ import Connection from './components/Connection.vue';
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
     </div>
-  </header>
+  </header> -->
 
   <main>
     <!-- <TheWelcome /> -->
-    <Connection />
+    <!-- <Connection /> -->
+    <ClockManager />
   </main>
 </template>
 
