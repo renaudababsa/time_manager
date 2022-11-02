@@ -24,7 +24,7 @@ import TimeTable from './components/TimeTable.vue';
   <main>
     <!-- <TheWelcome /> -->
     <!-- <Connection /> -->
-    <suspense><ClockManager /></suspense>
+    <!-- <suspense><ClockManager /></suspense> -->
     <TimeTable/>
   </main>
 </template>
