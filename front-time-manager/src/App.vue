@@ -3,10 +3,13 @@ import HelloWorld from './components/HelloWorld.vue';
 import TheWelcome from './components/TheWelcome.vue';
 import Connection from './components/Connection.vue';
 import ClockManager from './components/ClockManager.vue';
-import TimeTable from './components/TimeTable.vue';
+import WorkingTimes from './components/WorkingTimes.vue'
+import LoginManager from './components/LoginManager.vue'
 </script>
 
 <template>
+          <LoginManager/>
+          
   <!-- <header>
     <img
       alt="Vue logo"
@@ -22,10 +25,10 @@ import TimeTable from './components/TimeTable.vue';
   </header> -->
 
   <main>
+    <!-- <LoginManager/> -->
     <!-- <TheWelcome /> -->
-    <!-- <Connection /> -->
-    <suspense><ClockManager /></suspense>
-    <TimeTable/>
+    <!--<suspense><ClockManager /></suspense>-->
+    <!--<TimeTable/>-->
   </main>
 </template>
 

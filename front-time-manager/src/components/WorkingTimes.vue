@@ -1,4 +1,3 @@
-
 <script setup>
     import { createUser, updateUser, getUser, deleteUser } from './User.js';
     import { api } from '../services/api';
@@ -25,15 +24,15 @@
 
         return (hours + "h " + minutes + "m");
     }
-//    await getWorkingTimes(localStorage.getItem('id'), '2022-10-06 08:00:00', '2022-10-15 20:00:00').then((res) => {this.rendercode = res});
 </script>
 
 <template>
-    <form @submit.prevent="update_range(start_date, end_date)">
+        <form @submit.prevent="update_range(start_date, end_date)">
         <input type="datetime-local" v-model="start_date"/>
         <input type="datetime-local" v-model="end_date"/>
         <button type="submit">Submit</button>
-    </form>
+        </form>
+
     <table>
     <thead>
         <tr>
@@ -56,7 +55,6 @@
 
 <script>
 export default {
-
 name: 'Create',
 
     data() {
