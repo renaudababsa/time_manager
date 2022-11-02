@@ -27,8 +27,11 @@ import LoginManager from './components/LoginManager.vue'
   <main>
     <!-- <LoginManager/> -->
     <!-- <TheWelcome /> -->
-    <!--<suspense><ClockManager /></suspense>-->
-    <!--<TimeTable/>-->
+
+    <!-- <Connection /> -->
+    <!-- <suspense><ClockManager /></suspense> -->
+    <TimeTable/>
+
   </main>
 </template>
 
