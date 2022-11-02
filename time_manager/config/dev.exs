@@ -5,9 +5,7 @@ config :time_manager, TimeManager.Repo,
   username: "postgres",
   password: "root",
   hostname: "localhost",
-
-  database: "test_dev",
-
+  database: "new_time_manager_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
