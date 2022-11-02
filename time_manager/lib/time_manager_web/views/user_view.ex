@@ -18,7 +18,9 @@ defmodule TimeManagerWeb.UserView do
     %{
       id: user.id,
       username: user.username,
-      email: user.email
+      email: user.email,
+      group_id: user.group_id,
+      team_id: user.team_id
     }
   end
 end
