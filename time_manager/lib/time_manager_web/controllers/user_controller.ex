@@ -39,7 +39,32 @@ defmodule TimeManagerWeb.UserController do
      end
   end
 
+  def login(conn, params) do
+    username = Map.get(params, "username", nil)
+    password = Map.get(params, "password", nil)
+    if (username != nil && password != nil) do
+      user = Account.get_user_by_username(username)
+      if (user != nil) do
+        if (user.password == :crypto.hash(:sha256, [password, "iliamaaronflorianrenaud"])|> Base.encode16)) do
+          conn
+          |> put_status(:ok)
+          |> render("show.json", user: user)
+        else
+          conn
+          |> put_status(401)
+        end
+      else
+        conn
+        |> put_status(404)
+      end
+    else
+      conn
+      |> put_status(400)
+    end
+  end
+
   def create(conn, %{"user" => user_params}) do
+    user_params = Map.put(user_params, "password", :crypto.hash(:sha256, [user_params["password"], "iliamaaronflorianrenaud"])|> Base.encode16)
     with {:ok, %User{} = user} <- Account.create_user(user_params) do
       conn
       |> put_status(:created)
