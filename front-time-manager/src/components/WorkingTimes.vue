@@ -27,30 +27,41 @@
 </script>
 
 <template>
-        <form @submit.prevent="update_range(start_date, end_date)">
-        <input type="datetime-local" v-model="start_date"/>
-        <input type="datetime-local" v-model="end_date"/>
-        <button type="submit">Submit</button>
-        </form>
+    <div class="row">
+      <div class="col-xl-4 col-lg-12">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Working Times list</h6>
+            </div>
+          <div class="card-body">
+                <form @submit.prevent="update_range(start_date, end_date)">
+                <input type="datetime-local" v-model="start_date"/>
+                <input type="datetime-local" v-model="end_date"/>
+                <button type="submit">Submit</button>
+                </form>
 
-    <table>
-    <thead>
-        <tr>
-            <th>User id</th>
-            <th>Start time</th>
-            <th>End time</th>
-            <th>Time worked</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr v-for="entry in rendercode['data']">
-            <td>{{entry.user}}</td>
-            <td>{{entry.start}}</td>
-            <td>{{entry.end}}</td>
-            <td>{{computeElapsedTime(entry.start, entry.end)}}</td>
-        </tr>
-    </tbody>
-    </table>
+            <table>
+            <thead>
+                <tr>
+                    <th>User id</th>
+                    <th>Start time</th>
+                    <th>End time</th>
+                    <th>Time worked</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="entry in rendercode['data']">
+                    <td>{{entry.user}}</td>
+                    <td>{{entry.start}}</td>
+                    <td>{{entry.end}}</td>
+                    <td>{{computeElapsedTime(entry.start, entry.end)}}</td>
+                </tr>
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
