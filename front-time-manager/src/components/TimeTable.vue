@@ -1,112 +1,41 @@
 <script>
-import Chart from 'chart.js/auto';
-// import * as Utils from "./Utils.vue";
-
-function get_data() {
-  return (fetch("/data.json")
-          .then((res) => {
-            return res.json();
-          })
-          .then((data) => data))
-}
-
-async function working_hours() {
-  var working_times = await get_data()
-  var sum_monday = 0
-  for (let nb in working_times) {
-    var start_date = new Date(working_times[nb].start)
-    var end_date = new Date(working_times[nb].end)
-    var user_id = working_times[nb].user_id
-    sum_monday += Math.abs(end_date - start_date)/(3600*100*10);
-  }
-  console.log(sum_monday)
-  return sum_monday;
-}
+import { get_working_hours_user, get_working_hours_multi_users } from "./Tools.vue";
+import { renderChart } from "./RenderChart.vue"
 
 export default {
-  name: 'HelloWord',
   data() {
     return {
-      sum_monday: 0
+      timetable: [],
+      ChartName: ""
     }
   },
-  props: {
-    msg: String
-  },
   async mounted() {
-    this.sum_monday = await working_hours()
-    console.log(this.sum_monday)
-    console.log('Component mounted.')
-    const ctx = document.getElementById('myChart');
-    const data = {
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      datasets: [{
-        label: 'Emploi du temps',
-        data: [this.sum_monday, 12, 6, 9, 12, 3, 9],
-        backgroundColor: [
-        'rgba(255, 26, 104, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(0, 0, 0, 0.2)'
-        ],
-        borderColor: [
-        'rgba(255, 26, 104, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(0, 0, 0, 1)'
-        ],
-        borderWidth: 1
-      },
-      {
-        label: 'Weekly Sales',
-        data: [9, 4, 8, 9, 12, 3, 9],
-        backgroundColor: [
-        'rgba(255, 26, 104, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(0, 0, 0, 0.2)'
-        ],
-        borderColor: [
-        'rgba(255, 26, 104, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(0, 0, 0, 1)'
-        ],
-        borderWidth: 1
-      }]
-    };
-    
-    const myChart = new Chart(ctx, {
-      type: 'bar',
-      data,
-      options: {
-        scales: {
-          y: {
-            max: 12,
-            min: 0,
-          }
-        }
-      }
-    });
-    myChart;
+    // let username = "ababsa"
+    let usernames_l = ["ababsa", "iliam"]
+    // let teams_l = ["A", "B", "C"]
+    let interval_time = {
+      start: "2022-10-06T01:00:00",
+      end: "2022-10-10T23:00:00"
+    }
+    this.ChartName = "USERS"
+    let elapsed_time = Math.abs(new Date(interval_time.end)-new Date(interval_time.start))/(3600*100*10)
+    if (typeof username === 'string') {
+      this.timetable = await get_working_hours_user(username, interval_time)
+      elapsed_time = 12
+    } else if (typeof usernames_l === 'object') {
+      this.timetable = await get_working_hours_multi_users(usernames_l, interval_time)
+      elapsed_time = elapsed_time*(12/24)
+    } else if (typeof teams_l === 'object') {
+      this.timetable = await get_working_hours_teams(teams_l, interval_time)
+      elapsed_time = elapsed_time*(12/24)
+    }
+    renderChart(this.timetable, this.ChartName, elapsed_time);
   }
 }
 </script>
 
 <template>
   <div>
-    <canvas id="myChart" width="1200" height="800"></canvas>
+    <canvas :id=ChartName width="1200" height="800"></canvas>
   </div>
 </template>

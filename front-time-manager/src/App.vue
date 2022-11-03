@@ -29,7 +29,10 @@ import TopBar from './components/NavBar.vue'
     <LoginManager/>
     <!-- <LoginManager/> -->
     <!-- <TheWelcome /> -->
-    <!--<suspense><ClockManager /></suspense>-->
-    <!--<TimeTable/>-->
+
+    <!-- <Connection /> -->
+    <!-- <suspense><ClockManager /></suspense> -->
+    <TimeTable/>
+
   </main>
 </template>
