@@ -22,7 +22,7 @@ export default {
   
       data() {
       return {
-          username: "salut"
+          username: "(disconnected)"
       };
       },
       mounted: async function() {

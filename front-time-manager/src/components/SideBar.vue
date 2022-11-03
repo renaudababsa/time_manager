@@ -12,28 +12,28 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active">
-    <a class="nav-link" href="index.html">
+    <router-link to="/">
+        <a class="nav-link" aria-expanded="true" aria-controls="">
         <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+        <span>Dashboard</span></a></router-link>
 </li>
 
-<!-- Divider -->
 <hr class="sidebar-divider">
 
-<!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link" href="teams.html"
+    <router-link to="/login">
+    <a class="nav-link"
         aria-expanded="true" aria-controls="">
         <span>Équipes</span>
-    </a>
+    </a></router-link>
 </li>
 
-<!-- Nav Item - Utilities Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link" href="users.html" 
+    <router-link to="/">
+    <a class="nav-link"
         aria-expanded="true" aria-controls="">
         <span>Employés</span>
-    </a>
+    </a></router-link>
 </li>
 
 <hr class="sidebar-divider">
