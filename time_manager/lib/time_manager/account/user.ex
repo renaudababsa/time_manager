@@ -5,6 +5,7 @@ defmodule TimeManager.Account.User do
   schema "users" do
     field :email, :string
     field :username, :string
+    field :password, :string
     field :team_id, :id
     field :group_id, :id
 
@@ -14,7 +15,7 @@ defmodule TimeManager.Account.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :email, :group_id, :team_id])
-    |> validate_required([:username, :email])
+    |> cast(attrs, [:username, :email, :group_id, :team_id, :password])
+    |> validate_required([:username, :email, :password])
   end
 end

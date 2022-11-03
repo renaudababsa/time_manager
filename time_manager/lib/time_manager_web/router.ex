@@ -9,7 +9,9 @@ defmodule TimeManagerWeb.Router do
   scope "/api", TimeManagerWeb do
     pipe_through :api
     resources "/users", UserController, except: [:index, :new, :edit]
+    resources "/teams", TeamsController
     get "/users", UserController, :getParam
+    post "/users", UserController, :create
 
     scope "/workingtimes" do
       get "/:userID", WorkingTimeController, :getAll
