@@ -5,10 +5,11 @@ import Connection from './components/Connection.vue';
 import ClockManager from './components/ClockManager.vue';
 import WorkingTimes from './components/WorkingTimes.vue'
 import LoginManager from './components/LoginManager.vue'
+import SideBar from './components/SideBar.vue'
+import TopBar from './components/NavBar.vue'
 </script>
 
 <template>
-          <LoginManager/>
           
   <!-- <header>
     <img
@@ -25,6 +26,7 @@ import LoginManager from './components/LoginManager.vue'
   </header> -->
 
   <main>
+    <LoginManager/>
     <!-- <LoginManager/> -->
     <!-- <TheWelcome /> -->
 
@@ -34,32 +36,3 @@ import LoginManager from './components/LoginManager.vue'
 
   </main>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
