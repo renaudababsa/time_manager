@@ -28,10 +28,26 @@ defmodule TimeManagerWeb.Router do
   scope "/api", TimeManagerWeb do
     pipe_through :api
     post "/users/login", UserController, :login
+    post "/users", UserController, :create
   end
+
+  scope "/api", TimeManagerWeb do
+    pipe_through [:api, :jwtauthenticated, :managerverified]
+    resources "/users", UserController, except: [:index, :new, :edit]
+
+    scope "/workingtimes" do
+      get "/:userID", WorkingTimeController, :getAll
+      get "/:userID/:id", WorkingTimeController, :get
+    end
+
+    scope "/clocks" do
+      get "/:userID", ClockController, :show
+      post "/:userID", ClockController, :create
+    end
+  end
+
   scope "/api", TimeManagerWeb do
     pipe_through [:api, :jwtauthenticated, :adminverified]
-    resources "/users", UserController, except: [:index, :new, :edit]
     resources "/teams", TeamsController
     get "/users", UserController, :getParam
     post "/users", UserController, :create
@@ -39,18 +55,11 @@ defmodule TimeManagerWeb.Router do
     resources "/groups", GroupController, only: [:index, :create, :show]
 
     scope "/workingtimes" do
-      get "/:userID", WorkingTimeController, :getAll
       post "/:userID", WorkingTimeController, :create
-      get "/:userID/:id", WorkingTimeController, :get
       delete "/:userID/:id", WorkingTimeController, :delete
       put "/:userID/:id", WorkingTimeController, :update
     end
     resources "/workingtimes", WorkingTimeController, only: [:show]
-
-    scope "/clocks" do
-      get "/:userID", ClockController, :show
-      post "/:userID", ClockController, :create
-    end
   end
 
 end

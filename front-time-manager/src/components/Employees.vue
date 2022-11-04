@@ -45,7 +45,6 @@ name: 'Employees',
     getCorrRole (id) {
         let ret = "";
         this.roles['data'].forEach(function(item){
-          console.log(item['id'] + " == " + id);
           if (item['id'] == id) {
             ret = item['name'];
           }
