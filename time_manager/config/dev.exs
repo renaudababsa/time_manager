@@ -73,3 +73,20 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+{:ok, pem} = File.read("key.pem")
+
+config :joken,
+  rs256: [
+    signer_alg: "RS256",
+    key_pem: pem
+    ]
+
+
+# config :joken, current_time_adapter: MyTimeMock
+
+# # config joken to use a exp claim
+# config :joken,
+#   claims: %{
+#     exp: Joken.Claims.Expiry
+#   }

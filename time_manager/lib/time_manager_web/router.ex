@@ -6,12 +6,17 @@ defmodule TimeManagerWeb.Router do
     plug CORSPlug
   end
 
+  # pipeline :jwt_authenticated do
+  #   plug Guardian.AuthPipeline
+  # end
+
   scope "/api", TimeManagerWeb do
     pipe_through :api
     resources "/users", UserController, except: [:index, :new, :edit]
     resources "/teams", TeamsController
     get "/users", UserController, :getParam
     post "/users", UserController, :create
+    post "/users/login", UserController, :login
 
     scope "/workingtimes" do
       get "/:userID", WorkingTimeController, :getAll

@@ -3,6 +3,11 @@ defmodule TimeManagerWeb.UserController do
 
   alias TimeManager.Account
   alias TimeManager.Account.User
+  require Logger
+  require Joken.Signer
+  require TimeManager.Token
+  # use Plug.Conn
+  # use Phoenix.Token
 
   action_fallback TimeManagerWeb.FallbackController
 
@@ -40,15 +45,19 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def login(conn, params) do
-    username = Map.get(params, "username", nil)
+    email = Map.get(params, "email", nil)
     password = Map.get(params, "password", nil)
-    if (username != nil && password != nil) do
-      user = Account.get_user_by_username(username)
+    if (email != nil && password != nil) do
+      tmp = Account.get_user_by_email(email)
+      user = List.first(tmp)
+      Logger.info("user: #{inspect(user)}")
       if (user != nil) do
-        if (user.password == :crypto.hash(:sha256, [password, "iliamaaronflorianrenaud"])|> Base.encode16)) do
+        if (user.password == :crypto.hash(:sha256, [password, "iliamaaronflorianrenaud"])|> Base.encode16) do
+          token = TimeManager.Token.generate_and_sign!(%{username: user.username}, Joken.Signer.parse_config(:rs256))
+          Logger.error "token: #{inspect(Joken.Signer.verify(token, Joken.Signer.parse_config(:rs256)))}"
           conn
           |> put_status(:ok)
-          |> render("show.json", user: user)
+          |> render("show.json", user: user, token: token)
         else
           conn
           |> put_status(401)
