@@ -13,7 +13,8 @@ defmodule TimeManagerWeb.GroupView do
   def render("group.json", %{group: group}) do
     %{
       id: group.id,
-      name: group.name
+      name: group.name,
+      level: group.level
     }
   end
 end

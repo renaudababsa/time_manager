@@ -15,6 +15,14 @@ export async function createUser(username, password, email) {
     return result;
 }
 
+export async function loginUser(email, password) {
+  let result;
+  await api('/api/users/login?email=' + email + '&password=' + password, 'POST').then((res) => {
+      result = res;
+    });
+  return result;
+}
+
 export async function updateUser(id, username, email) {
     let result;
     await api('/api/users/' + id.toString(), 'PUT', {

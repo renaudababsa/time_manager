@@ -1,10 +1,13 @@
 <script setup>
-import { api } from '../services/api';
-function connection(name, email) {
-  api(`/api/users/?name=${name}&email=${email}`, 'GET').then((res) => {
+import { loginUser } from './User.js';
+async function connection(email, password) {
+  /*api(`/api/users/?name=${name}&email=${email}`, 'GET').then((res) => {
     localStorage.setItem('id', res['data'][0]['id']);
     location.reload();
-  });
+  });*/
+  let result = await loginUser(email, password);
+  localStorage.setItem("token", result['token']);
+  location.reload();
 }
 </script>
 <template>
@@ -15,12 +18,12 @@ function connection(name, email) {
           <h6 class="m-0 font-weight-bold text-primary">Login</h6>
         </div>
         <div class="card-body">
-        <form @submit.prevent="connection(name, email)">
-          <div class="col-xl-12">
-          <input type="text" v-model="name" placeholder="name" />
-          </div>
+        <form @submit.prevent="connection(email, password)">
           <div class="col-xl-12">
           <input type="text" v-model="email" placeholder="email" />
+          </div>
+          <div class="col-xl-12">
+          <input type="password" v-model="password" />
           </div>
           <div class="col-xl-12">
           <button class="btn btn-primary" type="submit">Submit</button>
