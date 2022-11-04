@@ -1,4 +1,6 @@
 <script setup>
+import {useRoute} from 'vue-router'
+import {computed} from 'vue'
 import HelloWorld from './components/HelloWorld.vue';
 import TheWelcome from './components/TheWelcome.vue';
 import Connection from './components/Connection.vue';
@@ -7,6 +9,7 @@ import WorkingTimes from './components/WorkingTimes.vue'
 import LoginManager from './components/LoginManager.vue'
 import SideBar from './components/SideBar.vue'
 import TopBar from './components/NavBar.vue'
+import Footer from './components/Footer.vue'
 </script>
 
 <template>
@@ -26,13 +29,26 @@ import TopBar from './components/NavBar.vue'
   </header> -->
 
   <main>
-    <LoginManager/>
+    <div id="wrapper">
+      <SideBar/>
+      <div id="content-wrapper">
+        <div id="content">
+          <TopBar/>
+          <div class="container-fluid">
+          <router-view></router-view>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    </div>
+
+    <!--<LoginManager/>-->
     <!-- <LoginManager/> -->
     <!-- <TheWelcome /> -->
 
     <!-- <Connection /> -->
     <!-- <suspense><ClockManager /></suspense> -->
-    <TimeTable/>
+    <!--<TimeTable/> -->
 
   </main>
 </template>

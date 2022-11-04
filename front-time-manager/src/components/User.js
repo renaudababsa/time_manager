@@ -1,10 +1,12 @@
 import { api } from '../services/api';
 
-export async function createUser(username, email) {
+export async function createUser(username, password, email) {
     let result;
     await api('/api/users', 'POST', {
            user: {
              username:  username,
+             group_id: "1",
+             password: password,
              email: email,
            },
          }).then((res) => {

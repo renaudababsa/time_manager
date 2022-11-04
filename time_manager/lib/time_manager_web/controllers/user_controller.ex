@@ -3,6 +3,11 @@ defmodule TimeManagerWeb.UserController do
 
   alias TimeManager.Account
   alias TimeManager.Account.User
+  require Logger
+  require Joken.Signer
+  require TimeManager.Token
+  # use Plug.Conn
+  # use Phoenix.Token
 
   action_fallback TimeManagerWeb.FallbackController
 
@@ -39,7 +44,36 @@ defmodule TimeManagerWeb.UserController do
      end
   end
 
+  def login(conn, params) do
+    email = Map.get(params, "email", nil)
+    password = Map.get(params, "password", nil)
+    if (email != nil && password != nil) do
+      tmp = Account.get_user_by_email(email)
+      user = List.first(tmp)
+      Logger.info("user: #{inspect(user)}")
+      if (user != nil) do
+        if (user.password == :crypto.hash(:sha256, [password, "iliamaaronflorianrenaud"])|> Base.encode16) do
+          token = TimeManager.Token.generate_and_sign!(%{username: user.username}, Joken.Signer.parse_config(:rs256))
+          Logger.error "token: #{inspect(Joken.Signer.verify(token, Joken.Signer.parse_config(:rs256)))}"
+          conn
+          |> put_status(:ok)
+          |> render("show.json", user: user, token: token)
+        else
+          conn
+          |> put_status(401)
+        end
+      else
+        conn
+        |> put_status(404)
+      end
+    else
+      conn
+      |> put_status(400)
+    end
+  end
+
   def create(conn, %{"user" => user_params}) do
+    user_params = Map.put(user_params, "password", :crypto.hash(:sha256, [user_params["password"], "iliamaaronflorianrenaud"])|> Base.encode16)
     with {:ok, %User{} = user} <- Account.create_user(user_params) do
       conn
       |> put_status(:created)

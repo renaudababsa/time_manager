@@ -17,7 +17,7 @@ import Footer from './Footer.vue'
         <div id="content">
           <TopBar/>
           <div class="container-fluid">
-            <WorkingTimes/>
+            <WorkingTimes/> 
           </div>
     <!-- <LoginManager/> -->
     <!-- <TheWelcome /> -->
