@@ -16,6 +16,11 @@ defmodule TimeManagerWeb.Router do
     plug Authenticate
   end
 
+  pipeline :groupverified do
+    plug :accepts, ["json"]
+    plug GroupVerify
+  end
+
   scope "/api", TimeManagerWeb do
     pipe_through :api
     post "/users/login", UserController, :login
@@ -27,7 +32,7 @@ defmodule TimeManagerWeb.Router do
     get "/users", UserController, :getParam
     post "/users", UserController, :create
 
-    resources "/groups", GroupController, only: [:create, :show]
+    resources "/groups", GroupController, only: [:index, :create, :show]
 
     scope "/workingtimes" do
       get "/:userID", WorkingTimeController, :getAll

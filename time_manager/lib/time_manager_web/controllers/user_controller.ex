@@ -90,7 +90,7 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    Logger.error "user_params: #{inspect(Map.get(conn.assigns.claims, "id"))}"
+    # Logger.error "user_params: #{inspect(Map.get(conn.assigns.claims, "id"))}"
     user = Account.get_user!(id)
     with {:ok, %User{} = user} <- Account.update_user(user, user_params) do
       render(conn, "show.json", user: user)

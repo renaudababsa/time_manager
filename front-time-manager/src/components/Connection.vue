@@ -6,6 +6,8 @@ async function connection(email, password) {
     location.reload();
   });*/
   let result = await loginUser(email, password);
+  localStorage.setItem("id", result['data']['id']);
+  localStorage.setItem("username", result['data']['username']);
   localStorage.setItem("token", result['token']);
   location.reload();
 }

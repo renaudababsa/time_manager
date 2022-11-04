@@ -11,7 +11,9 @@ export async function api(url, method, content = false) {
         method: method,
         headers: {
           'content-type': 'application/json',
-          'token': localStorage.getItem("token"),
+          //add access control origin
+          "x-csrf-token": localStorage.getItem('token')
+          //   Authorization: `Bearer ${session.token}`,
         },
         body: JSON.stringify(content),
       })
@@ -19,6 +21,9 @@ export async function api(url, method, content = false) {
         mode: 'cors',
         cache: 'no-cache',
         method: method,
+        headers: {  
+          "x-csrf-token": localStorage.getItem('token')
+        },
       });
 
   let response = await fetch(BASE_URL + url, params);

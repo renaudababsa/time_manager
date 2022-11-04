@@ -1,8 +1,6 @@
 <script setup>
     import {  getUsers } from './User.js';
-    function getRole() {
-      return ("aa");
-    }
+    import {  getGroups } from './Group.js';
 </script>
 
 <template>
@@ -23,7 +21,7 @@
           <tbody>
             <tr v-for="entry in renderdata['data']">
               <td>{{entry.username}}</td>
-              <td>{{getRole(entry.group_id).then("a")}}</td>
+              <td>{{getCorrRole(entry.group_id)}}</td>
               <td>Placeholder</td>
             </tr>
           </tbody>
@@ -43,7 +41,20 @@ name: 'Employees',
         renderdata: {},
     };
     },
+    methods: {
+    getCorrRole (id) {
+        let ret = "";
+        this.roles['data'].forEach(function(item){
+          console.log(item['id'] + " == " + id);
+          if (item['id'] == id) {
+            ret = item['name'];
+          }
+        });
+        return (ret);
+    },
+    },
     mounted: async function() {
+        this.roles = await getGroups();
         this.renderdata = await getUsers();
     },
 };
