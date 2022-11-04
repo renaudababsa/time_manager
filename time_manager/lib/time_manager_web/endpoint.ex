@@ -31,14 +31,6 @@ defmodule TimeManagerWeb.Endpoint do
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :time_manager
   end
 
-  # Configure cors for the application
-  # plug Corsica, origin: "*",
-  #   methods: [:get, :post, :put, :delete, :options],
-  #   headers: ["accept", "content-type", "origin", "authorization", "accept-encoding", "accept-language", "host", "referer", "user-agent", "x-requested-with", "x-csrf-token", "x-forwarded-for", "x-forwarded-proto", "x-forwarded-port", "via", "connect-time", "x-request-start", "total-route-time"],
-  #   credentials: true
-
-  #configure cors_plug to allow anything and any method and any header
-
 
   plug Phoenix.LiveDashboard.RequestLogger,
     param_key: "request_logger",
