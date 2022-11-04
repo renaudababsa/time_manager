@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import Home from './components/Dashboard.vue';
 import Connexion from './components/Connection.vue';
 import Register from './components/Register.vue';
+import Employees from './components/Employees.vue';
 
 const routes = [
 	{
@@ -22,6 +23,12 @@ const routes = [
 		component: Register,
 		meta: {level: 0},
 	},
+	{
+		path: '/employees',
+		name: 'employees',
+		component: Employees,
+		meta: {level: 1},
+	}
 ];
 
 const router = createRouter({

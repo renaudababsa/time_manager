@@ -39,8 +39,10 @@ defmodule TimeManagerWeb.UserController do
         |> render("manyshow.json", users: user)
       end
      else
-      conn
-      |> put_status(404)
+      user = Account.list_users()
+        conn
+        |> put_status(:ok)
+        |> render("manyshow.json", users: user)
      end
   end
 

@@ -29,7 +29,7 @@
 </li>
 
 <li class="nav-item">
-    <router-link to="/">
+    <router-link to="/employees">
     <a class="nav-link"
         aria-expanded="true" aria-controls="">
         <span>Employés</span>
