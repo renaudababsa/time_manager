@@ -11,9 +11,7 @@ export async function api(url, method, content = false) {
         method: method,
         headers: {
           'content-type': 'application/json',
-          //add access control origin
-
-          //   Authorization: `Bearer ${session.token}`,
+          'token': localStorage.getItem("token"),
         },
         body: JSON.stringify(content),
       })
