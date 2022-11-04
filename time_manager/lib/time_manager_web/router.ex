@@ -10,13 +10,22 @@ defmodule TimeManagerWeb.Router do
   #   plug Guardian.AuthPipeline
   # end
 
+  #made a pipeline for the jwt token authentication whithout the guardian
+  pipeline :jwtauthenticated do
+    plug :accepts, ["json"]
+    plug Authenticate
+  end
+
   scope "/api", TimeManagerWeb do
     pipe_through :api
+    post "/users/login", UserController, :login
+  end
+  scope "/api", TimeManagerWeb do
+    pipe_through [:api, :jwtauthenticated]
     resources "/users", UserController, except: [:index, :new, :edit]
     resources "/teams", TeamsController
     get "/users", UserController, :getParam
     post "/users", UserController, :create
-    post "/users/login", UserController, :login
 
     scope "/workingtimes" do
       get "/:userID", WorkingTimeController, :getAll

@@ -57,7 +57,7 @@ defmodule TimeManagerWeb.UserController do
           Logger.error "token: #{inspect(Joken.Signer.verify(token, Joken.Signer.parse_config(:rs256)))}"
           conn
           |> put_status(:ok)
-          |> render("show.json", user: user, token: token)
+          |> render("loginshow.json", user: user, token: token)
         else
           conn
           |> put_status(401)
@@ -89,7 +89,6 @@ defmodule TimeManagerWeb.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Account.get_user!(id)
-
     with {:ok, %User{} = user} <- Account.update_user(user, user_params) do
       render(conn, "show.json", user: user)
     end

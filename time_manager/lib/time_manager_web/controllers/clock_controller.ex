@@ -1,7 +1,8 @@
 defmodule TimeManagerWeb.ClockController do
   use TimeManagerWeb, :controller
-  
+
   alias TimeManager.API
+  # alias TimeManager.JwtAuthenticated
   alias TimeManager.API.Clock
 
   action_fallback TimeManagerWeb.FallbackController
