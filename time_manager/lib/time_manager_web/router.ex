@@ -16,6 +16,11 @@ defmodule TimeManagerWeb.Router do
     plug Authenticate
   end
 
+  pipeline :groupverified do
+    plug :accepts, ["json"]
+    plug GroupVerify
+  end
+
   scope "/api", TimeManagerWeb do
     pipe_through :api
     post "/users/login", UserController, :login
