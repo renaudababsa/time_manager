@@ -27,7 +27,8 @@ config :time_manager, TimeManagerWeb.Endpoint,
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
-  ]
+  ],
+  render_errors: [view: TheApp.ErrorView, accepts: ~w(json), layout: false]
 
 # ## SSL Support
 #

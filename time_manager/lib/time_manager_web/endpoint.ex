@@ -52,5 +52,8 @@ defmodule TimeManagerWeb.Endpoint do
   allow_headers: ["accept", "content-type", "authorization", "contenttype"],
   allow_credentials: true,
   log: [rejected: :error, invalid: :warn, accepted: :debug]
+
+  # plug Authenticate
+
   plug TimeManagerWeb.Router
 end
