@@ -6,7 +6,6 @@ import TheWelcome from './components/TheWelcome.vue';
 import Connection from './components/Connection.vue';
 import ClockManager from './components/ClockManager.vue';
 import WorkingTimes from './components/WorkingTimes.vue'
-import LoginManager from './components/LoginManager.vue'
 import SideBar from './components/SideBar.vue'
 import TopBar from './components/NavBar.vue'
 import Footer from './components/Footer.vue'

@@ -26,6 +26,8 @@ export default {
       };
       },
       mounted: async function() {
+        if (localStorage.getItem('id') == null)
+            return;
         let res = await getUser(localStorage.getItem('id'));
         this.username = res['data']['username'];
       },

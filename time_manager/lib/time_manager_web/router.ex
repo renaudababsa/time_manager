@@ -18,6 +18,8 @@ defmodule TimeManagerWeb.Router do
     post "/users", UserController, :create
     post "/users/login", UserController, :login
 
+    resources "/groups", GroupController, only: [:create, :show]
+
     scope "/workingtimes" do
       get "/:userID", WorkingTimeController, :getAll
       post "/:userID", WorkingTimeController, :create

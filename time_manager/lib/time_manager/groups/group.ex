@@ -4,6 +4,7 @@ defmodule TimeManager.Groups.Group do
 
   schema "groups" do
     field :name, :string
+    field :level, :integer
 
     timestamps()
   end
@@ -11,7 +12,7 @@ defmodule TimeManager.Groups.Group do
   @doc false
   def changeset(group, attrs) do
     group
-    |> cast(attrs, [:name])
+    |> cast(attrs, [:name, :level])
     |> validate_required([:name])
   end
 end

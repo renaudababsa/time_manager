@@ -8,16 +8,19 @@ const routes = [
 		path: '/',
 		name: 'home',
 		component: Home,
+		meta: {level: 1},
 	},
     {
 		path: '/login',
 		name: 'login',
 		component: Connexion,
+		meta: {level: 0},
 	},
     {
 		path: '/register',
 		name: 'register',
 		component: Register,
+		meta: {level: 0},
 	},
 ];
 
