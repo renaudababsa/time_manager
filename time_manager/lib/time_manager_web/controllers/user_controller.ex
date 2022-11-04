@@ -53,7 +53,7 @@ defmodule TimeManagerWeb.UserController do
       Logger.info("user: #{inspect(user)}")
       if (user != nil) do
         if (user.password == :crypto.hash(:sha256, [password, "iliamaaronflorianrenaud"])|> Base.encode16) do
-          token = TimeManager.Token.generate_and_sign!(%{username: user.username}, Joken.Signer.parse_config(:rs256))
+          token = TimeManager.Token.generate_and_sign!(%{id: user.id}, Joken.Signer.parse_config(:rs256))
           Logger.error "token: #{inspect(Joken.Signer.verify(token, Joken.Signer.parse_config(:rs256)))}"
           conn
           |> put_status(:ok)
@@ -88,6 +88,7 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
+    Logger.error "user_params: #{inspect(Map.get(conn.assigns.claims, "id"))}"
     user = Account.get_user!(id)
     with {:ok, %User{} = user} <- Account.update_user(user, user_params) do
       render(conn, "show.json", user: user)

@@ -24,10 +24,6 @@ defmodule Authenticate do
           |> assign(:claims, claims)
 
         {:error, error} ->
-          #get the error message in error_message key value list
-
-          Logger.error "conn: #{inspect(error)}"
-
           conn
           |> put_status(401)
           |> render(TimeManagerWeb.ErrorView, "error.json", reason: inspect error)
