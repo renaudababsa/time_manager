@@ -10,7 +10,7 @@ defmodule TimeManagerWeb.Router do
   #   plug Guardian.AuthPipeline
   # end
 
-  #made a pipeline for the jwt token authentication whithout the guardian
+  #made a pipeline for the jwt token authentication whithout the guardians
   pipeline :jwtauthenticated do
     plug :accepts, ["json"]
     plug Authenticate
