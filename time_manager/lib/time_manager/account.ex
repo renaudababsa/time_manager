@@ -48,6 +48,10 @@ defmodule TimeManager.Account do
     Repo.all(from u in User, where: u.email == ^email)
   end
 
+  def get_users_by_team(team_id) do
+    Repo.all(from u in User, where: u.team_id == ^team_id)
+  end
+
   @doc """
   Creates a user.
 
