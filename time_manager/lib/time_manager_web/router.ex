@@ -16,10 +16,16 @@ defmodule TimeManagerWeb.Router do
     plug Authenticate
   end
 
+  pipeline :isinteam do
+    plug :accepts, ["json"]
+    plug InTeam
+  end
+
   pipeline :adminverified do
     plug :accepts, ["json"]
     plug AdminVerify
   end
+
   pipeline :managerverified do
     plug :accepts, ["json"]
     plug ManagerVerify
@@ -32,25 +38,12 @@ defmodule TimeManagerWeb.Router do
   end
 
   scope "/api", TimeManagerWeb do
-    pipe_through [:api, :jwtauthenticated, :managerverified]
-    resources "/users", UserController, except: [:index, :new, :edit]
-
-    scope "/workingtimes" do
-      get "/:userID", WorkingTimeController, :getAll
-      get "/:userID/:id", WorkingTimeController, :get
-    end
-
-    scope "/clocks" do
-      get "/:userID", ClockController, :show
-      post "/:userID", ClockController, :create
-    end
-  end
-
-  scope "/api", TimeManagerWeb do
-    pipe_through [:api, :jwtauthenticated, :adminverified]
+    pipe_through [:api, :jwtauthenticated, :adminverified, :isinteam]
+    resources "/users", UserController, except: [:index, :new, :edit, :show]
     resources "/teams", TeamsController
     get "/users", UserController, :getParam
     post "/users", UserController, :create
+    get "/users/:team_id", UserController, :getusersbyteam
 
     resources "/groups", GroupController, only: [:index, :create, :show]
 

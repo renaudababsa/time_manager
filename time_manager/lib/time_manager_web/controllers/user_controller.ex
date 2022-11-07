@@ -55,7 +55,7 @@ defmodule TimeManagerWeb.UserController do
       Logger.info("user: #{inspect(user)}")
       if (user != nil) do
         if (user.password == :crypto.hash(:sha256, [password, "iliamaaronflorianrenaud"])|> Base.encode16) do
-          token = TimeManager.Token.generate_and_sign!(%{id: user.id, group_id: user.group_id}, Joken.Signer.parse_config(:rs256))
+          token = TimeManager.Token.generate_and_sign!(%{id: user.id, group_id: user.group_id, team_id: user.team_id}, Joken.Signer.parse_config(:rs256))
           # Logger.error "token: #{inspect(Joken.Signer.verify(token, Joken.Signer.parse_config(:rs256)))}"
           conn
           |> put_status(:ok)
@@ -87,6 +87,11 @@ defmodule TimeManagerWeb.UserController do
   def show(conn, %{"id" => id}) do
     user = Account.get_user!(id)
     render(conn, "show.json", user: user)
+  end
+
+  def getusersbyteam(conn, %{"team_id" => id}) do
+    users = Account.get_users_by_team(id)
+    render(conn, "manyshow.json", users: users)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
