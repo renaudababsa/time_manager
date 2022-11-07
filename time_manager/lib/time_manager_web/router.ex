@@ -10,7 +10,7 @@ defmodule TimeManagerWeb.Router do
   #   plug Guardian.AuthPipeline
   # end
 
-  #made a pipeline for the jwt token authentication whithout the guardians
+  #made a pipeline for the jwt token authentication whithout the guardian
   pipeline :jwtauthenticated do
     plug :accepts, ["json"]
     plug Authenticate
@@ -25,12 +25,11 @@ defmodule TimeManagerWeb.Router do
     plug :accepts, ["json"]
     plug AdminVerify
   end
-
   pipeline :managerverified do
     plug :accepts, ["json"]
     plug ManagerVerify
   end
-#a
+
   scope "/api", TimeManagerWeb do
     pipe_through :api
     post "/users/login", UserController, :login
@@ -38,12 +37,29 @@ defmodule TimeManagerWeb.Router do
   end
 
   scope "/api", TimeManagerWeb do
-    pipe_through [:api, :jwtauthenticated, :adminverified, :isinteam]
-    resources "/users", UserController, except: [:index, :new, :edit, :show]
+    pipe_through [:api, :jwtauthenticated, :managerverified]
+    resources "/users", UserController, except: [:index, :new, :edit]
+    scope "/users" do
+      pipe_through[:isinteam]
+      get "/teams/:team_id", UserController, :getusersbyteam
+    end
+
+    scope "/workingtimes" do
+      get "/:userID", WorkingTimeController, :getAll
+      get "/:userID/:id", WorkingTimeController, :get
+    end
+
+    scope "/clocks" do
+      get "/:userID", ClockController, :show
+      post "/:userID", ClockController, :create
+    end
+  end
+
+  scope "/api", TimeManagerWeb do
+    pipe_through [:api, :jwtauthenticated, :adminverified]
     resources "/teams", TeamsController
     get "/users", UserController, :getParam
     post "/users", UserController, :create
-    get "/users/:team_id", UserController, :getusersbyteam
 
     resources "/groups", GroupController, only: [:index, :create, :show]
 
