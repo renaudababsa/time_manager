@@ -47,7 +47,7 @@ import Footer from './components/Footer.vue'
 
     <!-- <Connection /> -->
     <!-- <suspense><ClockManager /></suspense> -->
-    <!--<TimeTable/> -->
+    <!-- <TimeTable/> -->
 
   </main>
 </template>
