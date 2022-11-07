@@ -43,6 +43,8 @@ defmodule TimeManagerWeb.Router do
       get "/teams/:team_id", UserController, :getusersbyteam
     end
 
+    resources "/groups", GroupController, only: [:show]
+
     scope "/workingtimes" do
       get "/:userID", WorkingTimeController, :getAll
       get "/:userID/:id", WorkingTimeController, :get
@@ -60,7 +62,7 @@ defmodule TimeManagerWeb.Router do
     get "/users", UserController, :getParam
     post "/users", UserController, :create
 
-    resources "/groups", GroupController, only: [:index, :create, :show]
+    resources "/groups", GroupController, only: [:index, :create]
 
     scope "/workingtimes" do
       post "/:userID", WorkingTimeController, :create
