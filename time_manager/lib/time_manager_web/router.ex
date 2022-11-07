@@ -30,7 +30,7 @@ defmodule TimeManagerWeb.Router do
     plug :accepts, ["json"]
     plug ManagerVerify
   end
-
+#a
   scope "/api", TimeManagerWeb do
     pipe_through :api
     post "/users/login", UserController, :login
