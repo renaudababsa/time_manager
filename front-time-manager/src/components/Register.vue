@@ -7,7 +7,7 @@ async function register(name, email, password) {
 </script>
 <template>
   <div class="row">
-    <div class="offset-xl-3 col-xl-6 col-lg-12" style="padding-top: 10%; padding-bottom: 25%;">
+    <div class="offset-xl-3 col-xl-6 col-lg-12" style="padding-top: 3%;">
       <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
           <h6 class="m-0 font-weight-bold text-primary">Register</h6>

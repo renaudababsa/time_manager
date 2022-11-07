@@ -40,7 +40,6 @@ defmodule TimeManagerWeb.Router do
     pipe_through [:api, :jwtauthenticated, :managerverified]
     resources "/users", UserController, except: [:index, :new, :edit]
     scope "/users" do
-      pipe_through[:isinteam]
       get "/teams/:team_id", UserController, :getusersbyteam
     end
 

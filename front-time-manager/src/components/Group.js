@@ -7,3 +7,11 @@ export async function getGroups() {
       });
     return result;
 }
+
+export async function getGroup(id) {
+  let result;
+  await api('/api/groups/' + id, 'GET').then((res) => {
+      result = res;
+    });
+  return result;
+}

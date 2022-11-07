@@ -60,6 +60,16 @@ export async function getUsers() {
   return result;
 }
 
+export async function getUsersByTeam(id) {
+  let result;
+  await api('/api/users/teams/' + id, 'GET').then((res) => {
+         return (res);
+       }).then((res) => {
+          result = res;
+       });
+  return result;
+}
+
 export async function deleteUser(id) {
     let result;
     await api('/api/users/' + id.toString(), 'DELETE').then((res) => {
