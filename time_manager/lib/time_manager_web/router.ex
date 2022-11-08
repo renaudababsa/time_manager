@@ -25,7 +25,6 @@ defmodule TimeManagerWeb.Router do
     plug :accepts, ["json"]
     plug AdminVerify
   end
-
   pipeline :managerverified do
     plug :accepts, ["json"]
     plug ManagerVerify
@@ -34,30 +33,43 @@ defmodule TimeManagerWeb.Router do
   scope "/api", TimeManagerWeb do
     pipe_through :api
     post "/users/login", UserController, :login
-  end
-  scope "/api", TimeManagerWeb do
-    pipe_through [:api]
-    resources "/users", UserController, except: [:index, :new, :edit]
-    resources "/teams", TeamsController
-    get "/users", UserController, :getParam
     post "/users", UserController, :create
-    get "/users/teams/:team_id", UserController, :getusersbyteam
+  end
 
-    resources "/groups", GroupController, only: [:create, :show]
+  scope "/api", TimeManagerWeb do
+    pipe_through [:api, :jwtauthenticated, :managerverified]
+    resources "/users", UserController, except: [:index, :new, :edit]
+    scope "/users" do
+      get "/teams/:team_id", UserController, :getusersbyteam
+    end
+
+    resources "/groups", GroupController, only: [:show]
 
     scope "/workingtimes" do
       get "/:userID", WorkingTimeController, :getAll
-      post "/:userID", WorkingTimeController, :create
       get "/:userID/:id", WorkingTimeController, :get
-      delete "/:userID/:id", WorkingTimeController, :delete
-      put "/:userID/:id", WorkingTimeController, :update
     end
-    resources "/workingtimes", WorkingTimeController, only: [:show]
 
     scope "/clocks" do
       get "/:userID", ClockController, :show
       post "/:userID", ClockController, :create
     end
+  end
+
+  scope "/api", TimeManagerWeb do
+    pipe_through [:api, :jwtauthenticated, :adminverified]
+    resources "/teams", TeamsController
+    get "/users", UserController, :getParam
+    post "/users", UserController, :create
+
+    resources "/groups", GroupController, only: [:index, :create]
+
+    scope "/workingtimes" do
+      post "/:userID", WorkingTimeController, :create
+      delete "/:userID/:id", WorkingTimeController, :delete
+      put "/:userID/:id", WorkingTimeController, :update
+    end
+    resources "/workingtimes", WorkingTimeController, only: [:show]
   end
 
 end

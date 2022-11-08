@@ -20,16 +20,16 @@
 
 <hr class="sidebar-divider">
 
-<li class="nav-item">
-    <router-link to="/login">
+<li v-if="level == 3" class="nav-item">
+    <router-link to="/teams">
     <a class="nav-link"
         aria-expanded="true" aria-controls="">
         <span>Équipes</span>
     </a></router-link>
 </li>
 
-<li class="nav-item">
-    <router-link to="/">
+<li v-if="level == 3" class="nav-item">
+    <router-link to="/employees">
     <a class="nav-link"
         aria-expanded="true" aria-controls="">
         <span>Employés</span>
@@ -40,3 +40,19 @@
 
 </ul>
 </template>
+
+<script>
+export default {
+  name: 'TopBar',
+  
+      data() {
+      return {
+        level: 0
+      };
+      },
+      mounted: async function() {
+        if (localStorage.getItem('level') != null)
+            this.level = localStorage.getItem('level');
+      },
+  };
+  </script>
