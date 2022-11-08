@@ -37,7 +37,7 @@ defmodule TimeManagerWeb.GroupController do
     group = Groups.get_group!(id)
 
     with {:ok, %Group{}} <- Groups.delete_group(group) do
-      send_resp(conn, :no_content, "")
+      render(conn, "show.json", group: group)
     end
   end
 end

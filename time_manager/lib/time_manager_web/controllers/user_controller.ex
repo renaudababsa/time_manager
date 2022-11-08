@@ -106,7 +106,7 @@ defmodule TimeManagerWeb.UserController do
     user = Account.get_user!(id)
 
     with {:ok, %User{}} <- Account.delete_user(user) do
-      send_resp(conn, :no_content, "")
+      render(conn, "show.json", user: user)
     end
   end
 end

@@ -40,6 +40,30 @@ export async function updateUser(id, username, email) {
     return result;
 }
 
+export async function updateUserRole(id, group_id) {
+  let result;
+  await api('/api/users/' + id.toString(), 'PATCH', {
+      user: {
+        group_id:  group_id
+      },
+    }).then((res) => {
+      result = res;
+    });
+  return result;
+}
+
+export async function updateUserTeam(id, team_id) {
+  let result;
+  await api('/api/users/' + id.toString(), 'PATCH', {
+      user: {
+        team_id:  team_id
+      },
+    }).then((res) => {
+      result = res;
+    });
+  return result;
+}
+
 export async function getUser(id) {
     let result;
     await api('/api/users/' + id.toString(), 'GET').then((res) => {

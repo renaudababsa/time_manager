@@ -30,6 +30,11 @@ defmodule TimeManagerWeb.Router do
     plug ManagerVerify
   end
 
+  pipeline :checkjwt do
+    plug :accepts, ["json"]
+    plug CheckJWT
+  end
+
   scope "/api", TimeManagerWeb do
     pipe_through :api
     post "/users/login", UserController, :login
@@ -37,7 +42,7 @@ defmodule TimeManagerWeb.Router do
   end
 
   scope "/api", TimeManagerWeb do
-    pipe_through [:api, :jwtauthenticated, :managerverified]
+    pipe_through [:api, :jwtauthenticated, :managerverified, :checkjwt]
     resources "/users", UserController, except: [:index, :new, :edit]
     scope "/users" do
       get "/teams/:team_id", UserController, :getusersbyteam
@@ -57,8 +62,9 @@ defmodule TimeManagerWeb.Router do
   end
 
   scope "/api", TimeManagerWeb do
-    pipe_through [:api, :jwtauthenticated, :adminverified]
-    resources "/teams", TeamsController
+    pipe_through [:api, :jwtauthenticated, :adminverified, :checkjwt]
+    resources "/teams", TeamsController, except: [:delete]
+    delete "/teams/:id", TeamsController, :delete
     get "/users", UserController, :getParam
     post "/users", UserController, :create
 

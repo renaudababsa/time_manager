@@ -37,7 +37,7 @@ defmodule TimeManagerWeb.TeamsController do
     teams = Team.get_teams!(id)
 
     with {:ok, %Teams{}} <- Team.delete_teams(teams) do
-      send_resp(conn, :no_content, "")
+      render(conn, "show.json", teams: teams)
     end
   end
 end
