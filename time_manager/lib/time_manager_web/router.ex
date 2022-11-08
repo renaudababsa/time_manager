@@ -36,12 +36,12 @@ defmodule TimeManagerWeb.Router do
     post "/users/login", UserController, :login
   end
   scope "/api", TimeManagerWeb do
-    pipe_through [:api, :jwtauthenticated, :adminverified, :isinteam]
-    resources "/users", UserController, except: [:index, :new, :edit, :show]
+    pipe_through [:api]
+    resources "/users", UserController, except: [:index, :new, :edit]
     resources "/teams", TeamsController
     get "/users", UserController, :getParam
     post "/users", UserController, :create
-    get "/users/:team_id", UserController, :getusersbyteam
+    get "/users/teams/:team_id", UserController, :getusersbyteam
 
     resources "/groups", GroupController, only: [:create, :show]
 

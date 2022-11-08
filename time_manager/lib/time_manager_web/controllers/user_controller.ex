@@ -61,14 +61,17 @@ defmodule TimeManagerWeb.UserController do
         else
           conn
           |> put_status(401)
+          |> render(TimeManagerWeb.ErrorView, "error.json", reason: "wrong password or email")
         end
       else
         conn
         |> put_status(404)
+        |> render(TimeManagerWeb.ErrorView, "error.json", reason: "wrong password or email")
       end
     else
       conn
       |> put_status(400)
+      |> render(TimeManagerWeb.ErrorView, "error.json", reason: "wrong password or email")
     end
   end
 
