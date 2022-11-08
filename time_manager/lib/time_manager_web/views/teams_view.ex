@@ -10,6 +10,10 @@ defmodule TimeManagerWeb.TeamsView do
     %{data: render_one(teams, TeamsView, "teams.json")}
   end
 
+  def render("message.json", %{reason: reason}) do
+    %{message: reason}
+  end
+
   def render("teams.json", %{teams: teams}) do
     %{
       id: teams.id,
