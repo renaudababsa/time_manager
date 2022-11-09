@@ -3,10 +3,9 @@
 </script>
 
 <template>
-    <div class="col-xl-3 col-lg-5" style="padding-top: 3%;">
-      <div class="card border-left-primary shadow mb-4">
+      <div class="card border-left-warning shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary">Historique des passages</h6>
+          <h6 class="m-0 font-weight-bold text-warning">Historique des passages</h6>
         </div>
         <div class="card-body">
         <div class="table-responsive">
@@ -28,7 +27,6 @@
         </div>
       </div>
       </div>
-    </div>
 </template>
 
 <script>

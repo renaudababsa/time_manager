@@ -7,7 +7,6 @@ import { renderChart } from './RenderChart.vue'
 
 export async function get_manager_datatable(teams, interval_time) {
   let total_tab = []
-  let manager = await getUser(3)
   let equipe_l = []
   for (let team in teams['data']) {
     let equipe = []
@@ -56,6 +55,7 @@ export default {
     return {
       timetable: [],
       ChartName: '',
+      level: localStorage.getItem('level'),
       interval_time: {
         start: '2022-01-01T00:00:00',
         end: '2022-01-01T23:59:00',
@@ -83,14 +83,29 @@ export default {
 </script>
 
 <template>
-  <div>
-    <form
-      @submit.prevent="update_range(interval_time.start, interval_time.end)"
-    >
-      <input type="datetime-local" v-model="interval_time.start" />
-      <input type="datetime-local" v-model="interval_time.end" />
-      <button type="submit">Submit</button>
-    </form>
-    <canvas :id="ChartName" width="1200" height="800"></canvas>
-  </div>
+      <div class="card border-left-success shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-success">Moyenne d'heures de toute les equipes</h6>
+        </div>
+      <div>
+        <form
+          @submit.prevent="update_range(interval_time.start, interval_time.end)"
+        >
+        <div class="grid">
+          <div class="row">
+            <div class="col-xl-5 col-lg-6">
+                <input class="form-control" type="datetime-local" v-model="interval_time.start" />
+            </div>
+            <div class="col-xl-5 col-lg-6">
+                <input class="form-control" type="datetime-local" v-model="interval_time.end" />
+            </div>
+            <div class="col-xl-2 col-lg-12">
+              <button class="btn btn-primary" type="submit">Changer</button>
+            </div>
+          </div>
+        </div>
+        </form>
+        <canvas :id="ChartName" width="1200" height="800"></canvas>
+      </div>
+    </div>
 </template>
