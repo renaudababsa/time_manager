@@ -1,9 +1,9 @@
 <script>
 import { getUsersByTeam, getUser } from './User.js'
-import { data_purged, get_data } from './Tools.vue'
 import { get_teamleader_datatable } from './TeamLeaderTable.vue'
 import { getId } from './workingtime.js'
-import { getTeam } from './Team.js'
+import { getTeam, getTeams } from './Team.js'
+import { renderChart } from './RenderChart.vue'
 
 export async function get_manager_datatable(teams, interval_time) {
   let total_tab = []
@@ -45,8 +45,52 @@ export async function get_manager_datatable(teams, interval_time) {
   return [
     total_tab,
     Math.abs(
-            new Date(interval_time.end.split('T', 1)+"T00:00:00") - new Date(interval_time.start.split('T', 1) + "T00:00:00"),
-        ) / (3600 * 100 * 10) / 24 * 8 + 8
+            new Date(interval_time.end.split('T', 1)+"T23:59:00") - new Date(interval_time.start.split('T', 1) + "T00:00:00"),
+        ) / (3600 * 100 * 10) / 24 * 8
   ]
 }
+
+export default {
+  props: ['id'],
+  data() {
+    return {
+      timetable: [],
+      ChartName: '',
+      interval_time: {
+        start: '2022-01-01T00:00:00',
+        end: '2022-01-01T23:59:00',
+      },
+      rendercode: {},
+    }
+  },
+  methods: {
+    async update_range(startdate, enddate) {
+      this.interval_time.start = startdate
+      this.interval_time.end = enddate
+      let teams = await getTeams()
+      this.ChartName = 'Manager'
+      this.timetable = await get_manager_datatable(
+        teams,
+        this.interval_time,
+      )
+      renderChart(this.timetable[0], this.timetable[1], this.ChartName)
+    },
+  },
+  async mounted() {
+    this.update_range(this.interval_time.start, this.interval_time.end)
+  },
+}
 </script>
+
+<template>
+  <div>
+    <form
+      @submit.prevent="update_range(interval_time.start, interval_time.end)"
+    >
+      <input type="datetime-local" v-model="interval_time.start" />
+      <input type="datetime-local" v-model="interval_time.end" />
+      <button type="submit">Submit</button>
+    </form>
+    <canvas :id="ChartName" width="1200" height="800"></canvas>
+  </div>
+</template>
