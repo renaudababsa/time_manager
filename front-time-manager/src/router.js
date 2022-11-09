@@ -3,6 +3,7 @@ import Home from './components/Dashboard.vue';
 import Connexion from './components/Connection.vue';
 import Employees from './components/Employees.vue';
 import Teams from './components/Teams.vue';
+import Profile from './components/Profile.vue';
 
 const routes = [
 	{
@@ -15,6 +16,12 @@ const routes = [
 		path: '/login',
 		name: 'login',
 		component: Connexion,
+		meta: {level: 0},
+	},
+	{
+		path: '/profile',
+		name: 'profile',
+		component: Profile,
 		meta: {level: 0},
 	},
 	{

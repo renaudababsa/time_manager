@@ -96,6 +96,9 @@ defmodule TimeManagerWeb.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     # Logger.error "user_params: #{inspect(Map.get(conn.assigns.claims, "id"))}"
+    user_params = if (user_params["password"] != nil) do
+      Map.put(user_params, "password", :crypto.hash(:sha256, [user_params["password"], "iliamaaronflorianrenaud"])|> Base.encode16)
+    end
     user = Account.get_user!(id)
     with {:ok, %User{} = user} <- Account.update_user(user, user_params) do
       render(conn, "show.json", user: user)
