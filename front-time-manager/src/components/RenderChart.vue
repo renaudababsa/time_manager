@@ -1,7 +1,7 @@
 <script>
 import Chart from 'chart.js/auto';
 
-export function renderChart(Timetable, ChartName, elapsed_time) {
+export function renderChart(Timetable, elapsed_time, ChartName) {
     const labels = []
     const workingtimes = []
     for (var elem in Timetable) {
@@ -36,7 +36,7 @@ export function renderChart(Timetable, ChartName, elapsed_time) {
         },
         {
             label: 'Horaire prévu',
-            data: Array(labels.length).fill(Math.round(elapsed_time)),
+            data: Array(labels.length).fill(Math.round(elapsed_time*Timetable[elem][2])),
             backgroundColor: [
             'rgba(255, 26, 104, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -58,14 +58,17 @@ export function renderChart(Timetable, ChartName, elapsed_time) {
             borderWidth: 1
         }]
     };
-    
+    let chartStatus = Chart.getChart(ChartName);
+    if (chartStatus != undefined) {
+        chartStatus.destroy();
+    }  
     const myChart = new Chart(ctx, {
         type: 'bar',
         data,
         options: {
             scales: {
                 y: {
-                    max: Math.round(elapsed_time*11/10),
+                    max: Math.round(elapsed_time*(11/10)*Timetable[elem][2]),
                     min: 0,
                 }
             }

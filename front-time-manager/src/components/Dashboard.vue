@@ -5,7 +5,9 @@ import TimeTable from './TimeTable.vue'
 
 <template>
     <div class="container-fluid">
-        <WorkingTimes/> 
-        <TimeTable/>
+        <!-- <WorkingTimes/>  -->
+        <!-- <div v-for="team in data"> -->
+        <TimeTable id='8'/>
+        <!-- </div> -->
     </div>
 </template>
