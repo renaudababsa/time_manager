@@ -1,13 +1,17 @@
 <script setup>
 import WorkingTimes from './WorkingTimes.vue'
-import TimeTable from './TimeTable.vue'
+import EmployeeTable from './EmployeeTable.vue'
+import TeamLeaderTable from './TeamLeaderTable.vue'
+import ManagerTable from './ManagerTable.vue'
 </script>
 
 <template>
     <div class="container-fluid">
         <!-- <WorkingTimes/>  -->
         <!-- <div v-for="team in data"> -->
-        <TimeTable id='8'/>
+        <EmployeeTable id='8'/>
+        <TeamLeaderTable id='5'/>
+        <ManagerTable id='3'/>
         <!-- </div> -->
     </div>
 </template>
