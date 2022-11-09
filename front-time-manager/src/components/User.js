@@ -27,12 +27,13 @@ export async function loginUser(email, password) {
   return result;
 }
 
-export async function updateUser(id, username, email) {
+export async function updateUser(id, username, email, password) {
     let result;
     await api('/api/users/' + id.toString(), 'PUT', {
         user: {
           username:  username,
           email: email,
+          password: password,
         },
       }).then((res) => {
         result = res;

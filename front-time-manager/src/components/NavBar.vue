@@ -5,10 +5,19 @@
 <template>
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown no-arrow">
-                <a class="nav-link" id="userDropdown" aria-haspopup="true" aria-expanded="false">
-                    <span v-if="isLogged" v-on:click="logOut" class="mr-2 d-none d-lg-inline text-gray-600 small">disconnect</span>
+            <li class="nav-item">
+                <router-link to="/profile">
+                <a class="nav-link">
+                    <span v-if="isLogged" class="mr-2 d-none d-lg-inline text-gray-600 small"><i class="fa fa-cogs"></i> Paramètres</span>
                 </a>
+                </router-link>
+            </li>
+            <li class="nav-item">
+                <router-link to="#">
+                <a class="nav-link">
+                    <span v-if="isLogged" v-on:click="logOut" class="mr-2 d-none d-lg-inline text-gray-600 small"><i class="fa fa-sign-out"></i> Deconnexion</span>
+                </a>
+                </router-link>
             </li>
             <div class="topbar-divider d-none d-sm-block"></div>
             <li class="nav-item dropdown no-arrow">
