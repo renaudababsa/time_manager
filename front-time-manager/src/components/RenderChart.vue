@@ -8,6 +8,7 @@ export function renderChart(Timetable, elapsed_time, ChartName) {
         labels.push(Timetable[elem][0])
         workingtimes.push(Timetable[elem][1])
     }
+    console.log(Timetable[elem][0],Timetable[elem][1],elapsed_time)
     const ctx = document.getElementById(ChartName);
     const data = {
         labels: labels,
