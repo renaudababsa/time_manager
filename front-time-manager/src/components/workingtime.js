@@ -36,6 +36,17 @@ export async function deleteWorkingTime(userId, id) {
   return result;
 }
 
+export async function getUsername(id) {
+  let result;
+  await api(
+    `/api/users/${id}`,
+    'GET'
+  ).then((res) => {
+    result = res['data'];
+  });
+  return result.username;
+}
+
 export async function getId(username) {
   let result;
   await api(

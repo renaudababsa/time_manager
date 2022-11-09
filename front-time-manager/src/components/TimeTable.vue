@@ -1,13 +1,13 @@
 <script>
-import {
-  get_working_hours_user,
-  get_working_hours_multi_users,
-} from './Tools.vue'
+import { get_employee_datatable } from './EmployeeTable.vue'
+import { get_teamleader_datatable } from './TeamLeaderTable.vue'
+import { get_manager_datatable } from './ManagerTable.vue'
 import { renderChart } from './RenderChart.vue'
-import * as wt from './WorkingTimes.vue'
-import { getWorkingTime } from './workingtime.js'
+import { getUsersByTeam, getUser } from './User.js'
+import { getTeams } from './Team.js'
 
 export default {
+  props: ['id'],
   data() {
     return {
       timetable: [],
@@ -21,54 +21,63 @@ export default {
   },
   methods: {
    async update_range(startdate, enddate) {
-    this.rendercode = await getWorkingTime(
-      localStorage.getItem("id"),
-      startdate,
-      enddate)
-    },
-  },
-  async mounted() {
-    this.update_range(this.interval_time.start, this.interval_time.end)
-    console.log(this.interval_time)
-    let username = 'user1'
-    console.log(wt)
-    // let usernames_l = ["ababsa", "iliam"]
-    // let teams_l = ["A", "B", "C"]
+    this.interval_time.start = startdate
+    this.interval_time.end = enddate
+    // let username = localStorage.getItem('username')
+    // console.log(username)
+    // ----------------- Employee -----------------
+    // let username = 8
+    // ----------------- TeamLeader -----------------
+    // let usernames_l = [8, 9, 10]
+    // let teamleader = await getUser(4)
+    // let users = await getUsersByTeam(teamleader['data']['team_id'])
+    // console.log("USERS : ", users['data'])
+    // let usernames_l = []
+    // for (let user in users['data']) {
+    //   usernames_l.push(users['data'][user]['id'])
+    // }
+    // ----------------- Manager -----------------
+    let teams = await getTeams()
+    // ----------------- ALGO -----------------
     this.ChartName = 'USERS'
     let elapsed_time =
       Math.abs(
         new Date(this.interval_time.end) - new Date(this.interval_time.start),
       ) /
       (3600 * 100 * 10)
-    if (typeof username === 'string') {
-      this.timetable = await get_working_hours_user(
-        username,
+    if (typeof username === 'number') {
+      this.timetable = await get_employee_datatable(
+        this.id,
         this.interval_time,
       )
       elapsed_time = 12
     } else if (typeof usernames_l === 'object') {
-      this.timetable = await get_working_hours_multi_users(
+      this.timetable = await get_teamleader_datatable(
         usernames_l,
         this.interval_time,
       )
       elapsed_time = elapsed_time * (12 / 24)
-    } else if (typeof teams_l === 'object') {
-      this.timetable = await get_working_hours_teams(
-        teams_l,
+    } else if (typeof teams === 'object') {
+      this.timetable = await get_manager_datatable(
+        teams,
         this.interval_time,
       )
-      elapsed_time = elapsed_time * (12 / 24)
     }
-    renderChart(this.timetable, this.ChartName, elapsed_time)
+    // ----------------- RENDER -----------------
+    renderChart(this.timetable[0], this.timetable[1], this.ChartName)
+    },
+  },
+  async mounted() {
+    this.update_range(this.interval_time.start, this.interval_time.end)
   },
 }
 </script>
 
 <template>
   <div>
-    <form @submit.prevent="update_range(start_date, end_date)">
-      <input type="datetime-local" v-model="start_date" />
-      <input type="datetime-local" v-model="end_date" />
+    <form @submit.prevent="update_range(interval_time.start, interval_time.end)">
+      <input type="datetime-local" v-model="interval_time.start" />
+      <input type="datetime-local" v-model="interval_time.end" />
       <button type="submit">Submit</button>
     </form>
     <canvas :id="ChartName" width="1200" height="800"></canvas>
