@@ -2,6 +2,7 @@
 import { get_data } from './Tools.vue'
 import { getUsersByTeam, getUser } from './User.js'
 import { renderChart } from './RenderChart.vue'
+import { getTeams } from './Team.js'
 
 export async function get_teamleader_datatable(users, interval_time) {
   var total_tab = []
@@ -34,6 +35,8 @@ export default {
     return {
       timetable: [],
       ChartName: '',
+      selected_id: '',
+      teams: {},
       level: localStorage.getItem('level'),
       interval_time: {
         start: '2022-01-01T00:00:00',
@@ -43,11 +46,10 @@ export default {
     }
   },
   methods: {
-    async update_range(startdate, enddate) {
+    async update_range(argid, startdate, enddate) {
       this.interval_time.start = startdate
       this.interval_time.end = enddate
-      let teamleader = await getUser(this.id)
-      let users = await getUsersByTeam(teamleader['data']['team_id'])
+      let users = await getUsersByTeam(argid)
       let usernames_l = []
       for (let user in users['data']) {
         usernames_l.push(users['data'][user]['id'])
@@ -61,7 +63,11 @@ export default {
     },
   },
   async mounted() {
-    this.update_range(this.interval_time.start, this.interval_time.end)
+    let user = await getUser(this.id);
+    this.selected_id = user['data']['team_id']
+    if (this.level >= 3)
+      this.teams = await getTeams();
+    this.update_range(this.selected_id, this.interval_time.start, this.interval_time.end)
   },
 }
 </script>
@@ -73,20 +79,25 @@ export default {
         </div>
       <div>
         <form
-          @submit.prevent="update_range(interval_time.start, interval_time.end)"
+          @submit.prevent="update_range(selected_id, interval_time.start, interval_time.end)"
         >
         <div class="grid">
-          <div class="row">
-            <div class="col-xl-5 col-lg-6">
-                <input class="form-control" type="datetime-local" v-model="interval_time.start" />
-            </div>
-            <div class="col-xl-5 col-lg-6">
-                <input class="form-control" type="datetime-local" v-model="interval_time.end" />
-            </div>
-            <div class="col-xl-2 col-lg-12">
-              <button class="btn btn-primary" type="submit">Changer</button>
-            </div>
+        <div class="row">
+          <div class="col-xl-3 col-lg-6">
+              <input class="form-control" type="datetime-local" v-model="interval_time.start" />
           </div>
+          <div class="col-xl-3 col-lg-6">
+              <input class="form-control" type="datetime-local" v-model="interval_time.end" />
+          </div>
+          <div v-if="level >= 3" class="col-xl-4 col-lg-6">
+            <select class="form-select" v-model="selected_id">
+              <option v-for="team in teams['data']" :value="team.id">{{team.name}}</option>
+            </select>
+          </div>
+          <div class="col-xl-2 col-lg-6">
+            <button class="btn btn-primary" type="submit">Changer</button>
+          </div>
+        </div>
         </div>
         </form>
         <canvas :id="ChartName" width="1200" height="800"></canvas>
