@@ -44,7 +44,7 @@ name: 'ClockHistory',
       this.renderdata = await getClocks(localStorage.getItem('id'));
       this.renderdata['data'].forEach(function(item){
         let date = new Date(item.time);
-        item.time = date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear() + ' ' + date.getHours() + ":" + date.getMinutes();
+        item.time = date.toLocaleDateString() + ' ' + date.getHours() + ":" + date.getMinutes();
       });
     },
 };
