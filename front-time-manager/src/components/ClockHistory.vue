@@ -41,10 +41,19 @@ name: 'ClockHistory',
     methods: {
     },
     mounted: async function() {
+
+    function addZeroBefore(n) {
+      return (n < 10 ? '0' : '') + n;
+    };
+
       this.renderdata = await getClocks(localStorage.getItem('id'));
       this.renderdata['data'].forEach(function(item){
         let date = new Date(item.time);
-        item.time = date.toLocaleDateString() + ' ' + date.getHours() + ":" + date.getMinutes();
+        item.time = date.toLocaleDateString({ // you can use undefined as first argument
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+}) + ' ' + addZeroBefore(date.getHours()) + ":" + addZeroBefore(date.getMinutes());
       });
     },
 };
