@@ -93,13 +93,13 @@ export default {
         >
         <div class="grid">
           <div class="row">
-            <div class="col-xl-5 col-lg-6">
+            <div class="col-xl-4 col-lg-6">
                 <input class="form-control" type="datetime-local" v-model="interval_time.start" />
             </div>
-            <div class="col-xl-5 col-lg-6">
+            <div class="col-xl-4 col-lg-6">
                 <input class="form-control" type="datetime-local" v-model="interval_time.end" />
             </div>
-            <div class="col-xl-2 col-lg-12">
+            <div class="col-xl-4 col-lg-12">
               <button class="btn btn-primary" type="submit">Changer</button>
             </div>
           </div>

@@ -77,7 +77,7 @@ export default {
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
           <h6 class="m-0 font-weight-bold text-info">Moyenne d'heures d'une equipe</h6>
         </div>
-      <div>
+      <div class="card-body">
         <form
           @submit.prevent="update_range(selected_id, interval_time.start, interval_time.end)"
         >
@@ -89,12 +89,12 @@ export default {
           <div class="col-xl-3 col-lg-6">
               <input class="form-control" type="datetime-local" v-model="interval_time.end" />
           </div>
-          <div v-if="level >= 3" class="col-xl-4 col-lg-6">
+          <div v-if="level >= 3" class="col-xl-3 col-lg-6">
             <select class="form-select" v-model="selected_id">
               <option v-for="team in teams['data']" :value="team.id">{{team.name}}</option>
             </select>
           </div>
-          <div class="col-xl-2 col-lg-6">
+          <div class="col-xl-3 col-lg-6">
             <button class="btn btn-primary" type="submit">Changer</button>
           </div>
         </div>

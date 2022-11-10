@@ -13,11 +13,11 @@ import ManagerTable from './ManagerTable.vue'
         <!-- <WorkingTimes/>  -->
         <!-- <div v-for="team in data"> -->
         <div class="col-6"><EmployeeTable :id="id"/></div>
+      </div>
         <div v-if="level >= 1" class="col-6"><TeamLeaderTable :id="id"/></div>
         <div v-if="level >= 3" class="col-6"><ManagerTable :id="id"/></div>
         <div class="col-3"><ClockHistory /></div>
         <!-- </div> -->
-        </div>
         </div>
     </div>
 </template>

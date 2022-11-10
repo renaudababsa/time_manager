@@ -54,11 +54,10 @@ export default {
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
           <h6 class="m-0 font-weight-bold text-primary">Heures passages par jour</h6>
         </div>
-      <div>
+      <div class="card-body">
         <form
           @submit.prevent="update_range(selected_id, interval_time.start, interval_time.end)"
         >
-        <div class="grid">
         <div class="row">
           <div class="col-xl-3 col-lg-6">
               <input class="form-control" type="datetime-local" v-model="interval_time.start" />
@@ -66,15 +65,14 @@ export default {
           <div class="col-xl-3 col-lg-6">
               <input class="form-control" type="datetime-local" v-model="interval_time.end" />
           </div>
-          <div v-if="level >= 3" class="col-xl-4 col-lg-6">
+          <div v-if="level >= 3" class="col-xl-3 col-lg-6">
             <select class="form-select" v-model="selected_id">
               <option v-for="user in users['data']" :value="user.id">{{user.username}}</option>
             </select>
           </div>
-          <div class="col-xl-2 col-lg-6">
+          <div class="col-xl-3 col-lg-6">
             <button class="btn btn-primary" type="submit">Changer</button>
           </div>
-        </div>
         </div>
         </form>
         <canvas :id="ChartName" width="1200" height="800"></canvas>
