@@ -65,11 +65,18 @@ defmodule TimeManagerWeb.Router do
     resources "/groups", GroupController, only: [:index, :create]
 
     scope "/workingtimes" do
-      post "/:userID", WorkingTimeController, :create
       delete "/:userID/:id", WorkingTimeController, :delete
-      put "/:userID/:id", WorkingTimeController, :update
     end
     resources "/workingtimes", WorkingTimeController, only: [:show]
+  end
+
+
+  scope "/api", TimeManagerWeb do
+    pipe_through [:api, :jwtauthenticated]
+    scope "/workingtimes" do
+      post "/:userID", WorkingTimeController, :create
+      patch "/:userID/:id", WorkingTimeController, :update
+    end
   end
 
 end
