@@ -14,6 +14,6 @@ defmodule TimeManager.API.WorkingTime do
   def changeset(working_time, attrs) do
     working_time
     |> cast(attrs, [:start, :end, :user])
-    |> validate_required([:start, :end])
+    |> validate_required([:start])
   end
 end
