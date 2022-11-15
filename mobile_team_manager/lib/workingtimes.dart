@@ -20,7 +20,7 @@ class _WorkingTimesStatefulState extends State<WorkingTimesStateful> {
     print(user);
     Dio dio = new Dio();
     dio.options.headers['content-Type'] = 'application/json';
-    dio.options.headers["x-csrf-token"] = await storage.read(key: 'token');
+    dio.options.headers["authorization"] = await storage.read(key: 'token');
     try {
       var tmp = await dio.get('http://localhost:4000/api/workingtimes/{user}');
       setState(() {

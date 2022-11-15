@@ -329,7 +329,7 @@ class _FilledCardStatefulState extends State<FilledCardStateful> {
     print(user);
     Dio dio = new Dio();
     dio.options.headers['content-Type'] = 'application/json';
-    dio.options.headers["x-csrf-token"] = await storage.read(key: 'token');
+    dio.options.headers["authorization"] = await storage.read(key: 'token');
     try {
       var tmp = await dio.get('http://localhost:4000/api/workingtimes/{user}');
       setState(() {
@@ -363,7 +363,7 @@ class _FilledCardStatefulState extends State<FilledCardStateful> {
     workingTime["end"] = DateTime.now().toIso8601String();
     Dio dio = new Dio();
     dio.options.headers['content-Type'] = 'application/json';
-    dio.options.headers["x-csrf-token"] = await storage.read(key: 'token');
+    dio.options.headers["authorization"] = await storage.read(key: 'token');
     try {
       print(workingTime["id"]);
       var tmp = await dio.patch(
@@ -403,7 +403,7 @@ class _FilledCardStatefulState extends State<FilledCardStateful> {
     print(user);
     Dio dio = new Dio();
     dio.options.headers['content-Type'] = 'application/json';
-    dio.options.headers["x-csrf-token"] = await storage.read(key: 'token');
+    dio.options.headers["authorization"] = await storage.read(key: 'token');
     try {
       var tmp = await dio.post(
           'http://localhost:4000/api/workingtimes/' + user.toString(),
