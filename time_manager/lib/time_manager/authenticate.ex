@@ -14,7 +14,7 @@ defmodule Authenticate do
 
   def init(opts), do: opts
   def call(conn, _opts) do
-    token = Enum.at(get_req_header(conn, "x-csrf-token"), 0)
+    token = Enum.at(get_req_header(conn, "authorization"), 0)
     # Logger.error "conn: #{inspect(TimeManager.Token.verify_and_validate(token, Joken.Signer.parse_config(:rs256)))}"
     # Logger.error "conn: #{inspect(Enum.at(get_req_header(conn, "x-csrf-token"), 0))}"
     if (token != nil) do

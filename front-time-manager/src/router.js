@@ -10,7 +10,7 @@ const routes = [
 		path: '/',
 		name: 'home',
 		component: Home,
-		meta: {level: 1},
+		meta: {level: 0},
 	},
     {
 		path: '/login',
@@ -28,13 +28,13 @@ const routes = [
 		path: '/employees',
 		name: 'employees',
 		component: Employees,
-		meta: {level: 1},
+		meta: {level: 3},
 	},
 	{
 		path: '/teams',
 		name: 'teams',
 		component: Teams,
-		meta: {level: 1},
+		meta: {level: 3},
 	}
 ];
 

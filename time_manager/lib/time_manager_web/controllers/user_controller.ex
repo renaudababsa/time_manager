@@ -59,7 +59,7 @@ defmodule TimeManagerWeb.UserController do
           # Logger.error "token: #{inspect(Joken.Signer.verify(token, Joken.Signer.parse_config(:rs256)))}"
           conn
           |> put_status(:ok)
-          |> render("loginshow.json", user: user, token: token)
+          |> render("loginshow.json", user: user, token: token, csrf: Plug.CSRFProtection.get_csrf_token())
         else
           conn
           |> put_status(401)

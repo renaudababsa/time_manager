@@ -11,6 +11,7 @@ async function connection(email, password) {
   localStorage.setItem("id", result['data']['id']);
   localStorage.setItem("username", result['data']['username']);
   localStorage.setItem("token", result['token']);
+  sessionStorage.setItem("csrf", result['csrf']);
   let role = await getGroup(result['data']['group_id']); 
   localStorage.setItem("level", role['data']['level'])
   location.reload();
