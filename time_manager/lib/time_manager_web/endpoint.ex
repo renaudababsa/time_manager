@@ -49,7 +49,7 @@ defmodule TimeManagerWeb.Endpoint do
   plug Plug.Session, @session_options
   plug CORSPlug,
   origins: "*",
-  allow_headers: ["accept", "content-type", "authorization", "origin", "x-csrf-token"],
+  allow_headers: ["accept", "content-type", "Authorization", "origin", "x-csrf-token"],
   allow_credentials: true,
   log: [rejected: :error, invalid: :warn, accepted: :debug]
 

@@ -10,14 +10,18 @@ import "./assets/sb-admin-2.css"
 let app = createApp(App)
 router.beforeEach((to, from, next) => {
     let isAuth = false;
-    if (localStorage.getItem("token"))
-        isAuth = true;
-    if (to.name !== 'login' && to.name !== 'register' && !isAuth) {
-        next({name:'login'})
-    } else if (to.name == 'register' && isAuth || to.name == 'login' && isAuth) {
+    if (localStorage.getItem("level") < to.meta.level) {
         next({name:'home'})
     } else {
-        next();
+        if (localStorage.getItem("token"))
+            isAuth = true;
+        if (to.name !== 'login' && to.name !== 'register' && !isAuth) {
+            next({name:'login'})
+        } else if (to.name == 'register' && isAuth || to.name == 'login' && isAuth) {
+            next({name:'home'})
+        } else {
+            next();
+        }
     }
 })
 app.use(router).mount('#app')
